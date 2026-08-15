@@ -10,28 +10,36 @@ The harness stays the agent. The CLI's own agent loop, tools, settings, memory f
 
 Requires a working `claude` on `PATH` ([Claude Code](https://claude.com/claude-code)), Node `^22.19 || >=24`, and a harness with `@deepseek-ai/dsh-llm`.
 
-Install it into the profile you actually run. The package declares `dsh.bundle`, so it joins that profile's layer stack and the `anthropic-claude-cli` route is composed on every start:
+Install it into the profile you actually run, pointing at your checkout of this repository. The package declares `dsh.bundle`, so it joins that profile's layer stack and the `anthropic-claude-cli` route is composed on every start:
 
 ```bash
-pnpm dsh plugin --profile web add dsh-claude-cli
+dsh plugin --profile web add ../dsh-claude-cli
 ```
 
-The commands here run `dsh` from a harness source checkout, which is why they go through `pnpm`. Drop the prefix if you have a released `dsh` on `PATH`.
+A path relative to where you run the command is fine here. This plugin is not on npm, so the directory is the only way to install it today.
 
 Restart the harness afterwards — a profile's layer stack is read at startup, so a running server keeps the composition it booted with. The models then appear under **Claude Code CLI** in the model picker.
 
-To install from a local checkout instead of the registry, pass the directory. A path relative to where you run the command is fine:
+### Invoking `dsh`
 
-```bash
-pnpm dsh plugin --profile web add ../dsh-claude-cli
-```
+The commands here assume `dsh` resolves. How you reach it depends on how the harness is installed:
+
+| Harness install | Command |
+| --- | --- |
+| Global | `dsh …` |
+| Source checkout | `pnpm dsh …` |
+| Neither | `npx @deepseek-ai/dsh …` |
+
+Use the **scoped** name with `npx`. Unscoped `dsh` on npm is an unrelated JavaScript shell, last published in 2022.
+
+That said, the third row is the odd one: this is a plugin for a harness, so a profile to install it into has to exist already. If you have never run `dsh`, install the harness first rather than reaching for `npx`.
 
 ### Without installing
 
 `cordis.yml` is a standalone `--patch` overlay for trying the plugin in one run, or for a profile you would rather not modify. Replace the placeholder path in it with this directory's absolute path — plugin paths in a patch must be absolute, because a patch contributes configuration without changing the directory the loader resolves module paths from.
 
 ```bash
-pnpm dsh --profile headless --patch /absolute/path/to/dsh-claude-cli/cordis.yml "your task"
+dsh --profile headless --patch /absolute/path/to/dsh-claude-cli/cordis.yml "your task"
 ```
 
 Unlike the bundle layer, that overlay also repoints `agent-default-model` at `anthropic-claude-cli`, so the one-shot run uses it without a model picker.
