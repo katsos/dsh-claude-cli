@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22.19', '24']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      # `npm ci` runs the `prepare` script, which builds the package.
+      - run: npm ci
+
+      - run: npm run typecheck
+
+      - run: npm test
+
+  # The e2e suite drives a real `claude` binary and a live login, so it is not
+  # run here. See the Development section of the README to run it locally.

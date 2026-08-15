@@ -2,7 +2,7 @@
 
 Use the Claude Code CLI you already have installed as a DeepSeek Harness LLM provider.
 
-No API key. The plugin runs `claude` as a subprocess and streams its output back through the harness's LLM seam, so requests authenticate as whatever `claude` is already logged in as.
+No API key. The plugin runs `claude` as a subprocess and streams its output back through the harness's LLM seam, so requests authenticate as whatever `claude` is already logged in as — a login you should check your plan's [usage terms](#usage-terms) against before automating.
 
 The harness stays the agent. The CLI's own agent loop, tools, settings, memory files, and MCP servers are all switched off; what is left is the model call, driven by the harness's system prompt, history, and tools.
 
@@ -78,7 +78,18 @@ These follow from driving a CLI rather than an HTTP API, and are worth knowing b
 - **Images are not sent.** An image block renders as a visible placeholder in the transcript.
 - **Prior reasoning is not replayed.** The provider discards unsigned thinking from history, so replaying it as text would only spend context.
 - **No app-attribution header.** The harness's `attributionHeaders()` cannot reach requests the CLI makes on its own behalf.
-- **Rate limits are the account's.** A subscription login is shared with your interactive Claude Code sessions.
+- **Rate limits are the account's.** A subscription login is shared with your interactive Claude Code sessions. See [Usage terms](#usage-terms).
+
+## Usage terms
+
+Nothing here bypasses authentication. Requests run through the official CLI, as whatever `claude` is already logged in as, using the same documented `--print` mode Claude Code ships for non-interactive use.
+
+What this plugin adds is different in kind: it makes a subscription login the model backend for *another* agent framework. Anthropic's [Consumer Terms](https://www.anthropic.com/legal/consumer-terms) reserve programmatic access for API keys, saying you may not reach the services "through automated or non-human means, whether through a bot, script, or otherwise". Whether driving the CLI this way falls inside that sentence is Anthropic's call to make, not this README's.
+
+Treat your own plan's terms and the [Usage Policy](https://www.anthropic.com/legal/aup) as the authority over anything written here. In particular:
+
+- Prefer an API key and an HTTP provider for unattended, high-volume, or production traffic. This plugin suits work you would otherwise have run by hand in Claude Code.
+- Reselling access, serving other people's requests, and evaluating the models to build a competing product are each separately prohibited, whichever credential you use.
 
 ## Development
 
