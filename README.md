@@ -34,7 +34,10 @@ Use the **scoped** name with `npx`. Unscoped `dsh` on npm is an unrelated JavaSc
 
 That said, the third row is the odd one: this is a plugin for a harness, so a profile to install it into has to exist already. If you have never run `dsh`, install the harness first rather than reaching for `npx`.
 
-### Without installing
+<details>
+<summary><b>Without installing</b> — run it once from a <code>--patch</code> overlay</summary>
+
+<br>
 
 `cordis.yml` is a standalone `--patch` overlay for trying the plugin in one run, or for a profile you would rather not modify. Replace the placeholder path in it with this directory's absolute path — plugin paths in a patch must be absolute, because a patch contributes configuration without changing the directory the loader resolves module paths from.
 
@@ -43,6 +46,8 @@ dsh --profile headless --patch /absolute/path/to/dsh-claude-cli/cordis.yml "your
 ```
 
 Unlike the bundle layer, that overlay also repoints `agent-default-model` at `anthropic-claude-cli`, so the one-shot run uses it without a model picker.
+
+</details>
 
 ## How tool calls work
 
