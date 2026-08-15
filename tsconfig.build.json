@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "lib",
+    "declaration": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    // Local imports carry `.ts` for the source launch; emit rewrites them to
+    // `.js` so the built entry runs under plain Node in a released dsh.
+    "rewriteRelativeImportExtensions": true
+  },
+  "include": ["src"]
+}

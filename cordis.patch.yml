@@ -1,0 +1,17 @@
+# The bundle layer applied when this package is installed into a profile with
+# `dsh plugin --profile <name> add dsh-claude-cli`.
+#
+# It only adds the provider route. Which model an agent uses stays the user's
+# choice, made on the Models page or in the profile's own patch, so installing
+# this plugin never silently repoints an existing agent at a different model.
+
+- insert:
+    - id: claude-cli
+      name: 'dsh-claude-cli'
+      config:
+        providers:
+          - claude-cli
+        # Agent presets commonly set maxTokens for every route they might run
+        # on, and the CLI has no flag for it. Drop those fields rather than
+        # failing every request the preset makes.
+        unsupportedFields: ignore
