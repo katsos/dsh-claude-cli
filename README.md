@@ -13,15 +13,17 @@ Requires a working `claude` on `PATH` ([Claude Code](https://claude.com/claude-c
 Install it into the profile you actually run. The package declares `dsh.bundle`, so it joins that profile's layer stack and the `anthropic-claude-cli` route is composed on every start:
 
 ```bash
-dsh plugin --profile web add dsh-claude-cli
+pnpm dsh plugin --profile web add dsh-claude-cli
 ```
+
+The commands here run `dsh` from a harness source checkout, which is why they go through `pnpm`. Drop the prefix if you have a released `dsh` on `PATH`.
 
 Restart the harness afterwards — a profile's layer stack is read at startup, so a running server keeps the composition it booted with. The models then appear under **Claude Code CLI** in the model picker.
 
-To install from a local checkout instead of the registry, pass the directory:
+To install from a local checkout instead of the registry, pass the directory. A path relative to where you run the command is fine:
 
 ```bash
-dsh plugin --profile web add /absolute/path/to/dsh-claude-cli
+pnpm dsh plugin --profile web add ../dsh-claude-cli
 ```
 
 ### Without installing
@@ -29,7 +31,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-claude-cli
 `cordis.yml` is a standalone `--patch` overlay for trying the plugin in one run, or for a profile you would rather not modify. Replace the placeholder path in it with this directory's absolute path — plugin paths in a patch must be absolute, because a patch contributes configuration without changing the directory the loader resolves module paths from.
 
 ```bash
-dsh --profile headless --patch /absolute/path/to/dsh-claude-cli/cordis.yml "your task"
+pnpm dsh --profile headless --patch /absolute/path/to/dsh-claude-cli/cordis.yml "your task"
 ```
 
 Unlike the bundle layer, that overlay also repoints `agent-default-model` at `anthropic-claude-cli`, so the one-shot run uses it without a model picker.
