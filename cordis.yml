@@ -12,7 +12,7 @@
       name: '/absolute/path/to/dsh-claude-cli/src/index.ts'
       config:
         providers:
-          - claude-cli
+          - anthropic-claude-cli
         # Agent presets commonly set maxTokens for every route they might run
         # on, and the CLI has no flag for it. Drop those fields rather than
         # failing the request.
@@ -20,5 +20,5 @@
 
 - id: agent-default-model
   config:
-    provider: claude-cli
+    provider: anthropic-claude-cli
     model: sonnet

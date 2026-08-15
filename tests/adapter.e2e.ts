@@ -47,7 +47,7 @@ async function collect(stream: AsyncIterable<StreamChunk>): Promise<StreamChunk[
 describe.skipIf(!available)('ClaudeCliAdapter against the real CLI', () => {
   it('streams a text answer and reports usage before finishing', { timeout: 120_000 }, async () => {
     const chunks = await collect(adapter.stream({
-      provider: 'claude-cli',
+      provider: 'anthropic-claude-cli',
       model: 'haiku',
       system: 'You are terse. Answer with a single word.',
       messages: [user('What is the capital of France?')],
@@ -75,7 +75,7 @@ describe.skipIf(!available)('ClaudeCliAdapter against the real CLI', () => {
 
   it('returns a native tool call with valid JSON arguments', { timeout: 120_000 }, async () => {
     const chunks = await collect(adapter.stream({
-      provider: 'claude-cli',
+      provider: 'anthropic-claude-cli',
       model: 'haiku',
       system: 'You are a shell agent. Use the run_command tool to do what the user asks.',
       messages: [user('List the files in the current directory.')],
@@ -106,7 +106,7 @@ describe.skipIf(!available)('ClaudeCliAdapter against the real CLI', () => {
   it('stops promptly when the caller aborts', { timeout: 120_000 }, async () => {
     const controller = new AbortController()
     const stream = adapter.stream({
-      provider: 'claude-cli',
+      provider: 'anthropic-claude-cli',
       model: 'haiku',
       system: 'You are verbose.',
       messages: [user('Write a very long essay about the sea.')],
@@ -122,7 +122,7 @@ describe.skipIf(!available)('ClaudeCliAdapter against the real CLI', () => {
 
   it('rejects a request field the CLI cannot honor', async () => {
     await expect(collect(adapter.stream({
-      provider: 'claude-cli',
+      provider: 'anthropic-claude-cli',
       model: 'haiku',
       messages: [user('hi')],
       temperature: 0.5,

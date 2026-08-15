@@ -10,7 +10,7 @@
       name: 'dsh-claude-cli'
       config:
         providers:
-          - claude-cli
+          - anthropic-claude-cli
         # Agent presets commonly set maxTokens for every route they might run
         # on, and the CLI has no flag for it. Drop those fields rather than
         # failing every request the preset makes.

@@ -10,7 +10,7 @@ The harness stays the agent. The CLI's own agent loop, tools, settings, memory f
 
 Requires a working `claude` on `PATH` ([Claude Code](https://claude.com/claude-code)), Node `^22.19 || >=24`, and a harness with `@deepseek-ai/dsh-llm`.
 
-Install it into the profile you actually run. The package declares `dsh.bundle`, so it joins that profile's layer stack and the `claude-cli` route is composed on every start:
+Install it into the profile you actually run. The package declares `dsh.bundle`, so it joins that profile's layer stack and the `anthropic-claude-cli` route is composed on every start:
 
 ```bash
 dsh plugin --profile web add dsh-claude-cli
@@ -32,7 +32,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-claude-cli
 dsh --profile headless --patch /absolute/path/to/dsh-claude-cli/cordis.yml "your task"
 ```
 
-Unlike the bundle layer, that overlay also repoints `agent-default-model` at `claude-cli`, so the one-shot run uses it without a model picker.
+Unlike the bundle layer, that overlay also repoints `agent-default-model` at `anthropic-claude-cli`, so the one-shot run uses it without a model picker.
 
 ## How tool calls work
 
@@ -52,7 +52,7 @@ harness chunks ◀─────────┘  tool_use → tool-call → the
 
 | Field | Default | Meaning |
 |---|---|---|
-| `providers` | `['claude-cli']` | Provider routes this adapter serves. |
+| `providers` | `['anthropic-claude-cli']` | Provider routes this adapter serves. |
 | `executable` | `'claude'` | Path or command name of the CLI. |
 | `cwd` | harness cwd | Working directory for the CLI process. |
 | `streamIdleTimeoutMs` | `300000` | Maximum gap between CLI output lines before the request fails as `TIMEOUT`. |

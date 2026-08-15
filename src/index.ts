@@ -33,7 +33,7 @@ export interface Config {
 }
 
 export const Config: Schema<Config> = Schema.object({
-  providers: Schema.array(String).default(['claude-cli'])
+  providers: Schema.array(String).default(['anthropic-claude-cli'])
     .description('Provider routes this adapter serves.'),
   executable: Schema.string().default('claude')
     .description('Path or command name of the Claude Code CLI executable.'),

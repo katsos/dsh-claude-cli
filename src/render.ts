@@ -19,7 +19,7 @@
 import type { ContentBlock, Message } from '@deepseek-ai/dsh-llm'
 
 /** Text substituted for an image block, which the CLI has no way to accept. */
-export const IMAGE_PLACEHOLDER = '[image omitted: the claude-cli provider cannot send images]'
+export const IMAGE_PLACEHOLDER = '[image omitted: the anthropic-claude-cli provider cannot send images]'
 
 /**
  * Escape the delimiters this renderer uses for structure.

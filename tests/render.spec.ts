@@ -20,7 +20,7 @@ describe('renderConversation', () => {
       message('user', [{ type: 'text', text: 'first' }]),
       message('assistant', [{ type: 'text', text: 'second' }], {
         kind: 'model',
-        provider: 'claude-cli',
+        provider: 'anthropic-claude-cli',
         model: 'sonnet',
       }),
       message('user', [{ type: 'text', text: 'third' }]),
@@ -37,7 +37,7 @@ describe('renderConversation', () => {
       message(
         'assistant',
         [{ type: 'tool-call', id: CallId('c1'), name: 'bash', arguments: '{"command":"ls"}' }],
-        { kind: 'model', provider: 'claude-cli', model: 'sonnet' },
+        { kind: 'model', provider: 'anthropic-claude-cli', model: 'sonnet' },
       ),
       message(
         'user',
@@ -100,7 +100,7 @@ describe('renderConversation', () => {
       message('assistant', [
         { type: 'reasoning', text: 'private deliberation' },
         { type: 'text', text: 'answer' },
-      ], { kind: 'model', provider: 'claude-cli', model: 'sonnet' }),
+      ], { kind: 'model', provider: 'anthropic-claude-cli', model: 'sonnet' }),
     ])
 
     expect(rendered).not.toContain('private deliberation')
